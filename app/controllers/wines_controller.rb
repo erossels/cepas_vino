@@ -1,5 +1,6 @@
 class WinesController < ApplicationController
   before_action :set_wine, only: [:show, :edit, :update, :destroy]
+  before_action :check_total, only: [:create]
 
   # GET /wines
   # GET /wines.json
@@ -15,6 +16,7 @@ class WinesController < ApplicationController
   # GET /wines/new
   def new
     @wine = Wine.new
+    @strains = Strain.all
   end
 
   # GET /wines/1/edit
@@ -25,6 +27,7 @@ class WinesController < ApplicationController
   # POST /wines.json
   def create
     @wine = Wine.new(wine_params)
+    @strains = Strain.all
 
     respond_to do |format|
       if @wine.save
@@ -32,7 +35,7 @@ class WinesController < ApplicationController
         format.json { render :show, status: :created, location: @wine }
       else
         format.html { render :new }
-        format.json { render json: @wine.errors, status: :unprocessable_entity }
+        format.json { render json: @wine.errors, status: :unprocessable_entity, notice: 'An error ocurred!' }
       end
     end
   end
@@ -41,6 +44,8 @@ class WinesController < ApplicationController
   # PATCH/PUT /wines/1.json
   def update
     respond_to do |format|
+    @strains = Strain.all
+
       if @wine.update(wine_params)
         format.html { redirect_to @wine, notice: 'Wine was successfully updated.' }
         format.json { render :show, status: :ok, location: @wine }
@@ -69,6 +74,16 @@ class WinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wine_params
-      params.require(:wine).permit(:name)
+      params.require(:wine).permit(:name, assemblies_attributes: [:strain_id, :percentage])
+    end
+
+    def check_total
+      sum = 0
+      params[:wine][:assemblies_attributes].each_value do |strain|
+        sum += (strain[:percentage]).to_i
+      end
+      if sum > 100
+       redirect_to root_path, alert: 'Strain percentages sum is greater than 100'
+      end
     end
 end

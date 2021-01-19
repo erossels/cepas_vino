@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_19_001645) do
+ActiveRecord::Schema.define(version: 2021_01_19_001851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assemblies", force: :cascade do |t|
+    t.bigint "wine_id", null: false
+    t.bigint "strain_id", null: false
+    t.integer "percentage", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["strain_id"], name: "index_assemblies_on_strain_id"
+    t.index ["wine_id"], name: "index_assemblies_on_wine_id"
+  end
 
   create_table "strains", force: :cascade do |t|
     t.string "name"
@@ -27,4 +37,6 @@ ActiveRecord::Schema.define(version: 2021_01_19_001645) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "assemblies", "strains"
+  add_foreign_key "assemblies", "wines"
 end
