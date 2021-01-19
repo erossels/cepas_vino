@@ -9,8 +9,7 @@ class Wine < ApplicationRecord
       strains.append(Strain.find(Assembly.find(assembly_id).strain_id).to_s+' ['+Assembly.find(assembly_id).percentage.to_s+'%]')
     end
 
-    strains.sort
-    strains
+    strains = strains.sort
   end
 
 end
