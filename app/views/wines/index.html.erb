@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Composition</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,8 +17,8 @@
         <td><%= wine.name %></td>
         <td>
           <ul>
-            <% wine.assembly_ids.each do |assembly_id| %>
-              <li><%= Strain.find(Assembly.find(assembly_id).strain_id)%> [<%= Assembly.find(assembly_id).percentage %> %]</li>
+            <% wine.order_strains.each do |strain| %> 
+              <li><%= strain %></li>
             <% end %>
           </ul>
         </td>
