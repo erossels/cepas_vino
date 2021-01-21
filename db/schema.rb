@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_012009) do
+ActiveRecord::Schema.define(version: 2021_01_21_013137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 2021_01_21_012009) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "score"
+    t.bigint "oenologist_id", null: false
+    t.bigint "wine_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["oenologist_id"], name: "index_reviews_on_oenologist_id"
+    t.index ["wine_id"], name: "index_reviews_on_wine_id"
+  end
+
   create_table "strains", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -73,4 +83,6 @@ ActiveRecord::Schema.define(version: 2021_01_21_012009) do
 
   add_foreign_key "assemblies", "strains"
   add_foreign_key "assemblies", "wines"
+  add_foreign_key "reviews", "oenologists"
+  add_foreign_key "reviews", "wines"
 end
