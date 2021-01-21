@@ -1,6 +1,7 @@
 class WinesController < ApplicationController
   before_action :set_wine, only: [:show, :edit, :update, :destroy]
   before_action :check_total, only: [:create]
+  before_action :authenticate_admin!, except: [:index]
 
   # GET /wines
   # GET /wines.json
@@ -91,6 +92,6 @@ class WinesController < ApplicationController
       else
         redirect_to new_wine_path, alert: 'You must add a strain in order to make wine'
       end
-      
     end
+
 end

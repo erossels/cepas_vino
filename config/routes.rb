@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  resources :strains
-  resources :wines
-  root "wines#index"
+  devise_for :users
+  devise_for :admins
+  root to: "wines#index"
+
+  authenticate :admin do
+    resources :wines
+    resources :strains
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -58,3 +58,5 @@ gem "cocoon", "~> 1.2"
 gem "jquery-rails", "~> 4.4"
 
 gem 'bootstrap'
+
+gem "devise", "~> 4.7"
