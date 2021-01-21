@@ -1,6 +1,7 @@
 class Wine < ApplicationRecord
   has_many :assemblies, dependent: :destroy
   has_many :strains, through: :assemblies, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   accepts_nested_attributes_for :assemblies
 
   def order_strains

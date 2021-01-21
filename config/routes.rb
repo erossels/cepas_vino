@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   authenticate :admin do
     resources :wines
     resources :strains
+    resources :reviews
+    resources :oenologists
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
