@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= form.label :oenologist_id %>
-    <%= form.text_field :oenologist_id %>
+    <%= form.select :oenologist_id, options_from_collection_for_select(@oenologists, :id, :name), include_blank: "Select Reviewer"%>
   </div>
 
   <div class="field">
     <%= form.label :wine_id %>
-    <%= form.text_field :wine_id %>
+    <%= form.select :wine_id, options_from_collection_for_select(@wines, :id, :name), include_blank: "Select Wine" %>
   </div>
 
   <div class="actions">

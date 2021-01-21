@@ -29,6 +29,16 @@
         <%= link_to_add_association 'Add strain', form, :assemblies%>
       </div>
 
+      <div id="reviews" class='form-group ml-5'>
+        <%= form.fields_for :reviews do |ff| %>
+            <%= render "review_fields", :f => ff %>
+        <% end %>
+      </div>
+
+      <div class="links my-4">
+        <%= link_to_add_association 'Add review', form, :reviews%>
+      </div>
+
       <button type="submit" class="btn btn-primary">Create wine</button>
     <% end %>
   </div>

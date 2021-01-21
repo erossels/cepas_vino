@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin!
 
   # GET /reviews
   # GET /reviews.json
@@ -15,16 +16,22 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   def new
     @review = Review.new
+    @wines = Wine.all
+    @oenologists = Oenologist.all
   end
 
   # GET /reviews/1/edit
   def edit
+    @wines = Wine.all
+    @oenologists = Oenologist.all
   end
 
   # POST /reviews
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
+    @wines = Wine.all
+    @oenologists = Oenologist.all
 
     respond_to do |format|
       if @review.save

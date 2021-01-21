@@ -10,7 +10,15 @@
           <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "dropdown-item"%>
         </li>
       <% elsif admin_signed_in? %>
-          <%= link_to 'Sign out', destroy_admin_session_path, method: :delete, class: "dropdown-item" %>
+          <li class="nav-item">
+            <%= link_to 'Oenologists', oenologists_path, class: "dropdown-item"  %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Reviews', reviews_path, class: "dropdown-item"  %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign out', destroy_admin_session_path, method: :delete, class: "dropdown-item" %>
+          </li>
       <% else  %>
         <li class="nav-item">
           <%=link_to 'Sign in', new_user_registration_path, class: "dropdown-item" %>
