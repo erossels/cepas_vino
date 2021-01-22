@@ -14,14 +14,18 @@ RSpec.describe WinesController, type: :controller do
     end
 
     it "displays wines" do
+      @wines = Wine.all
+      allow(Wine).to receive(:all).and_return(@wines)
+      get :index
+      expect(assigns(:wines)).to match_array(@wines)
     end
   end
 
   describe "GET show" do
     before { 
       @wine1 = Wine.create!(name: 'Test Wine')
-      test_user = User.create(email:'test@test.cl', password: 123456)
-      sign_in :test_user
+      test_admin = Admin.create(email:'test@test.cl', password: 123456, password_confirmation: 123456)
+      sign_in :admin, test_admin
     }
 
     it "renders the show template" do
